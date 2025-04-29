@@ -73,7 +73,12 @@ class Cli():
                                 action='store_true', help='Only '
                                 'display entries for which the '
                                 'resulting action was BLOCK.')
-
+        
+        arg_parser.add_argument('-l', '--filter-limit-only',
+                                action='store_true', help='Only '
+                                'display entries for which the '
+                                'resulting action was LIMIT BLOCK.')
+        
         arg_parser.add_argument('-i', '--filter-inbound-only',
                                 action='store_true', help='Only '
                                 'display entries which were '
