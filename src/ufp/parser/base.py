@@ -137,9 +137,9 @@ class ParserFilter():
         setattr(self.__dict__['options'], name, value)
 
     def filter_line(self, parsed_line):
-        if self.options.filter_allow_only and (parsed_line.blocked() or parsed_line.limit()):
+        if self.options.filter_allow_only and (parsed_line.blocked() or parsed_line.limited()):
             return False
-        if self.options.filter_block_only and (parsed_line.allowed() or parsed_line.limit()):
+        if self.options.filter_block_only and (parsed_line.allowed() or parsed_line.limited()):
             return False
         if self.options.filter_limit_only and (parsed_line.blocked() or parsed_line.allowed()):
             return False
