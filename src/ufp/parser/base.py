@@ -141,6 +141,8 @@ class ParserFilter():
             return False
         if self.options.filter_block_only and parsed_line.allowed():
             return False
+        if self.options.filter_limit_only and parsed_line.allowed():
+            return False
         if self.options.filter_inbound_only and parsed_line.outbound():
             return False
         if self.options.filter_outbound_only and parsed_line.inbound():
