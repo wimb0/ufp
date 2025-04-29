@@ -1,5 +1,5 @@
 from .base import BaseFormatter
-
+from prettytable import PrettyTable
 
 class BasicSrcDstActionFormatter(BaseFormatter):
     """
@@ -30,11 +30,15 @@ class BasicSrcDstActionFormatter(BaseFormatter):
                 src = line.src
             if dst is None:
                 dst = line.dst
-
-            print("{date:20} {proto:10} SRC: {srcip:60}  DST: "
-                  "{dstip:60} SPT: {spt:<8} DPT: {dpt:<8} ACTION: "
-                  "{action}"
-                  .format(date=line.date.strftime('%Y-%m-%d %H:%M:%S'),
-                          proto=line.get_proto(), srcip=src,
-                          dstip=dst, spt=line.spt, dpt=line.dpt,
-                          action=self.get_action_repr(line)))
+                
+            if self.options.table:
+                table = PrettyTable()
+                table.add_row([line.date.strftime('%Y-%m-%d %H:%M:%S'), line.get_proto(), src, dst, line.spt, line.dpt, self.get_action_repr(line)]
+            else:
+                print("{date:20} {proto:10} SRC: {srcip:60}  DST: "
+                      "{dstip:60} SPT: {spt:<8} DPT: {dpt:<8} ACTION: "
+                      "{action}"
+                      .format(date=line.date.strftime('%Y-%m-%d %H:%M:%S'),
+                              proto=line.get_proto(), srcip=src,
+                              dstip=dst, spt=line.spt, dpt=line.dpt,
+                              action=self.get_action_repr(line)))
