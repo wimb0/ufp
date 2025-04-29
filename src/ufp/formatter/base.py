@@ -19,14 +19,11 @@ class BaseFormatter():
 
         if parsed_line.allowed():
             action = allow
-        else:
-            action = block
-
-        if parsed_line.limited():
+        elif parsed_line.limited():
             action = limit
         else:
             action = block
-            
+          
         return action
 
     def format(self):
