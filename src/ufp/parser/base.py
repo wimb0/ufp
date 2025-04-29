@@ -35,6 +35,8 @@ class ParsedLine():
             self.action = self.ACTION_ALLOW
         elif action == 'BLOCK':
             self.action = self.ACTION_BLOCK
+        elif action == 'LIMIT BLOCK':
+            self.action = self.ACTION_BLOCK
         elif action == 'AUDIT':
             pass
         else:
@@ -79,8 +81,9 @@ class ParsedLine():
 
 
 class BaseParser():
-    # Aug  6 06:25:20 myhost kernel: [105600.181847] [UFW ALLOW] ...
-    HEADER_PATTERN = r'([A-Za-z]{3}\s+\d{1,2} \d{2}:\d{2}:\d{2}) ([a-zA-Z0-9-]+) kernel: \[.*\] \[UFW ([A-Z]+)\]'  # nopep8
+    # 2025-04-29T10:07:42.539574+02:00 myhost kernel: [105600.181847] [UFW ALLOW] ...
+    HEADER_PATTERN = r'(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}\+\d{2}:\d{2}) ([a-zA-Z0-9-]+) kernel: \[.*\] \[UFW ([A-Z\s]+)\]'  # nopep8
+    
     # IN= OUT=eno1 SRC=123.45.67.89 DST=123.45.67.88 LEN=60 TOS=0x00
     # PREC=0x00 TTL=64 ID=24678 DF PROTO=TCP SPT=37314 DPT=11211
     # WINDOW=29200 RES=0x00 SYN URGP=0
@@ -94,8 +97,7 @@ class BaseParser():
         # parse header
         header_groups = self.header_regex.findall(line)
         # convert date to python object
-        date = datetime.datetime.strptime(header_groups[0][0],
-                                          '%b %d %H:%M:%S')
+        date = datetime.datetime.strptime(header_groups[0][0],'%Y-%m-%dT%H:%M:%S.%f%z')
 
         # was the connection attempt ALLOWed or BLOCKed?
         action = header_groups[0][2]
