@@ -25,7 +25,12 @@ class Cli():
                                 help='Print the parsed data with a '
                                 'basic formatter which displays source '
                                 'and destination pairs.')
-
+        
+        arg_parser.add_argument('-t', '--table', action='store_true',
+                                help='Print the parsed data as a '
+                                'basic table which displays source '
+                                'and destination pairs.')
+        
         arg_parser.add_argument('-s', '--summary', action='store_true',
                                 help='Print the parsed data with a '
                                 'summary which displays distinct '
