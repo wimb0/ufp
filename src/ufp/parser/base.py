@@ -41,7 +41,7 @@ class ParsedLine():
         elif action == 'AUDIT':
             pass
         else:
-            raise ValueError("action must be ALLOW or BLOCK")
+            raise ValueError("action must be ALLOW, BLOCK or LIMIT BLOCK")
 
     def allowed(self):
         return self.action == self.ACTION_ALLOW
