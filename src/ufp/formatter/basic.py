@@ -9,6 +9,7 @@ class BasicSrcDstActionFormatter(BaseFormatter):
     def format(self):
         if self.options.table:
             table = PrettyTable()
+            table.field_names = ['Date', 'Protocol', 'Source IP', 'Destination IP', 'Source Port', 'Destination Port', 'Action']
         
         for line in self.entries:
             if self.options.reverse_dns:
