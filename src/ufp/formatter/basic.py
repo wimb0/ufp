@@ -34,7 +34,7 @@ class BasicSrcDstActionFormatter(BaseFormatter):
             print("{date:20} {proto:10} SRC: {srcip:60}  DST: "
                   "{dstip:60} SPT: {spt:<8} DPT: {dpt:<8} ACTION: "
                   "{action}"
-                  .format(date=line.date.strftime('%b %d %H:%M:%S'),
+                  .format(date=line.date.strftime('%Y-%m-%d %H:%M:%S'),
                           proto=line.get_proto(), srcip=src,
                           dstip=dst, spt=line.spt, dpt=line.dpt,
                           action=self.get_action_repr(line)))
