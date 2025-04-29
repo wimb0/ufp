@@ -37,6 +37,7 @@ class ParsedLine():
         elif action == 'BLOCK':
             self.action = self.ACTION_BLOCK
         elif action == 'LIMIT BLOCK':
+            print(action)
             self.action = self.ACTION_LIMIT
         elif action == 'AUDIT':
             pass
