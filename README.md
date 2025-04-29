@@ -5,7 +5,7 @@ The [Uncomplicated Firewall](https://help.ubuntu.com/community/UFW "UFW help") (
 
 ```
 Usage: ufp.py [-h] [-p] [-s] [-src2dpt] [-dst2dpt] [-src2dst] [-ct] [-r] [-c]
-              [-a] [-b] [-i] [-o] [-spt FILTER_SOURCE_PORT]
+              [-a] [-b] [-l] [-i] [-o] [-spt FILTER_SOURCE_PORT]
               [-dpt FILTER_DESTINATION_PORT] [-src FILTER_SOURCE_IP]
               [-dst FILTER_DESTINATION_IP]
               [filename]
@@ -43,6 +43,9 @@ optional arguments:
   -b, --filter-block-only
                         Only display entries for which the resulting action
                         was BLOCK.
+  -l, --filter-limit-only
+                        Only display entries for which the resulting action
+                        was LIMIT BLOCK.
   -i, --filter-inbound-only
                         Only display entries which were initiated inbound to
                         the logging host.
