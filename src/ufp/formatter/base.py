@@ -11,15 +11,22 @@ class BaseFormatter():
         if self.options.colorize:
             allow = '\u2705'
             block = '\u274C'
+            limit = '\u2B55'
         else:
             allow = 'ALLOW'
             block = 'BLOCK'
+            limit = 'LIMIT'
 
         if parsed_line.allowed():
             action = allow
         else:
             action = block
 
+        if parsed_line.limited():
+            action = limit
+        else:
+            action = block
+            
         return action
 
     def format(self):
