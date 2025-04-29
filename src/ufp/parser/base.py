@@ -8,7 +8,8 @@ socket.setdefaulttimeout(1)
 class ParsedLine():
     ACTION_BLOCK = 0
     ACTION_ALLOW = 1
-
+    ACTION_LIMIT = 2
+    
     _ip_protocol_table = {num: name[8:] for name, num in
                           vars(socket).items() if
                           name.startswith("IPPROTO")}
@@ -36,7 +37,7 @@ class ParsedLine():
         elif action == 'BLOCK':
             self.action = self.ACTION_BLOCK
         elif action == 'LIMIT BLOCK':
-            self.action = self.ACTION_BLOCK
+            self.action = self.ACTION_LIMIT
         elif action == 'AUDIT':
             pass
         else:
@@ -47,6 +48,9 @@ class ParsedLine():
 
     def blocked(self):
         return self.action == self.ACTION_BLOCK
+        
+    def limited(self):
+        return self.action == self.ACTION_LIMIT
 
     def inbound(self):
         return self.data['IN'] != ''
@@ -57,7 +61,10 @@ class ParsedLine():
     def get_action_text(self):
         if self.action == self.ACTION_ALLOW:
             return 'ALLOW'
-        return 'BLOCK'
+        elif self.action == self.ACTION_LIMIT:
+            return 'LIMIT'
+        else:
+            return 'BLOCK'
 
     def __getattr__(self, name):
         name = name.upper()
